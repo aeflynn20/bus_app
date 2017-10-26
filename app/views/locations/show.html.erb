@@ -1,26 +1,39 @@
-<%= @buses %>
-
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Street address:</strong>
-  <%= @location.street_address %>
+<h2>Check These Buses Out!</h2>
+
+<h3 class = "text-muted">Your current location</h3>
+
+<p class = "text-muted">
+  <%= @location.full_street_address %> <small><%= link_to fa_icon('pencil', text: "Edit"), edit_location_path(@location) %></small>
+
 </p>
 
-<p>
-  <strong>City:</strong>
-  <%= @location.city %>
-</p>
+<h3>The Closest Buses Are:</h3>
+<% @buses.each do |bus|%>
+  <div class = 'well'>
+    <strong>Route: </strong><%= bus ["ROUTE"] %> <%= bus ["DIRECTION"] %> <br>
+    <strong>Bus Number: </strong> <%= bus ["VEHICLE"] %> <br>
+    <strong>Next Stop: </strong> <%= bus ["TIMEPOINT"] %>
+  </div>
+<% end %>
 
-<p>
-  <strong>Latitude:</strong>
-  <%= @location.latitude %>
-</p>
+<% if @buses.empty? %>
+  <h3 class = "text-center">...unfortunately, not that close. Now is probably a good time to walk, buke, taxi, uber, hoverboard, or <%= link_to 'change your location', edit_location_path(@location) %></h3>
+<% end %>
 
-<p>
-  <strong>Longitude:</strong>
-  <%= @location.longitude %>
-</p>
 
-<%= link_to 'Edit', edit_location_path(@location) %> |
-<%= link_to 'Back', locations_path %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
